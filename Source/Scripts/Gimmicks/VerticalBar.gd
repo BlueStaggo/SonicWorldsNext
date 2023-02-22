@@ -4,31 +4,31 @@ extends Node
 # Author: DimensionWarped
 
 # Sound to play when the bar is grabbed
-export var grabSound = preload("res://Audio/SFX/Player/Grab.wav")
+@export var grabSound = preload("res://Audio/SFX/Player/Grab.wav")
 
 # How many times to spin around the bar before launching
-export var rotations = 1
+@export var rotations = 1
 
 # How fast the player needs to be going to catch the bar
-export var grabSpeed = 300
+@export var grabSpeed = 300
 
 # How fast to launch the player if the mode is constant
-export var launchSpeed = 720
+@export var launchSpeed = 720
 
 # How fast to launch the player if the mode is multiply
-export var launchMultiplier = 1.5
+@export var launchMultiplier = 1.5
 
 # Maximum speed to allow the player to launch when in multiply
-export var launchMultiMaxSpeed = 900
+@export var launchMultiMaxSpeed = 900
 
-# The CONSTANT launch mode will always launch the player with a set speed based on launchSpeed
-# The MULTIPLY launch mode will launch the player at a multiple of their incoming velocity clamped
+# The CONSTANT launch mode will always launch the player with a set speed based checked launchSpeed
+# The MULTIPLY launch mode will launch the player at a multiple of their incoming velocity clamp
 #              to a given max value.
 enum {CONSTANT, MULTIPLY}
-export(int, "constant", "multiply") var launchMode # Keep these in the same order as the above enum
+@export var launchMode # Keep these in the same order as the above enum # (int, "constant", "multiply")
 
 var players = [] # Tracks the players that are active within the gimmick
-var players_speed = [] # Tracks the player's speed on entering the loop (used for multiply mode)
+var players_speed = [] # Tracks the player's speed checked entering the loop (used for multiply mode)
 var players_cur_loops = [] # Tracks how many loops the player has been throught eh animation
 var players_pass_hit = [] # Tracks whether the player has hit the release point of the animation
 
@@ -86,7 +86,7 @@ func _physics_process(_delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	for i in players:
-		# If the player isn't on the bar, skip it.
+		# If the player isn't checked the bar, skip it.
 		if i.currentState != i.STATES.ANIMATION:
 			continue
 			
@@ -119,7 +119,7 @@ func check_grab(body):
 	if !(body.ground):
 		return false
 		
-	# Skip if already on the vertical bar or player is jumping
+	# Skip if already checked the vertical bar or player is jumping
 	if (body.currentState == body.STATES.ANIMATION or body.currentState == body.STATES.JUMP):
 		return false
 		
@@ -141,15 +141,15 @@ func _on_VerticalBarArea_body_exited(body):
 	
 func remove_player(player):
 	if players.has(player):
-		# Don't allow removal of someone who is still on the vertical bar. This can occur with
+		# Don't allow removal of someone who is still checked the vertical bar. This can occur with
 		# high speeds. Preventing this should be fine since the player will be brought back into
-		# collision overlap range by virtue of being on the bar.
+		# collision overlap range by virtue of being checked the bar.
 		if (player.currentState == player.STATES.ANIMATION):
 			return
 			
 		# Clean out the player from all player-linked arrays.
 		var getIndex = players.find(player)
 		players.erase(player)
-		players_speed.remove(getIndex)
-		players_cur_loops.remove(getIndex)
-		players_pass_hit.remove(getIndex)
+		players_speed.remove_at(getIndex)
+		players_cur_loops.remove_at(getIndex)
+		players_pass_hit.remove_at(getIndex)

@@ -1,6 +1,6 @@
-class_name EnemyBase extends KinematicBody2D
+class_name EnemyBase extends CharacterBody2D
 
-export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
+@export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
 var playerHit = []
 
 var velocity = Vector2.ZERO
@@ -16,9 +16,9 @@ func _process(delta):
 	if (playerHit.size() > 0):
 		# loop through players as i
 		for i in playerHit:
-			# check if damage entity is on or supertime is bigger then 0
-			if (i.get_collision_layer_bit(19) or i.supTime > 0 or forceDamage):
-				# check player is not on floor
+			# check if damage entity is checked or supertime is bigger then 0
+			if (i.get_collision_layer_value(19) or i.supTime > 0 or forceDamage):
+				# check player is not checked floor
 				if !i.ground:
 					# subtract from velocity if velocity is less then 0 or below enemy (use current velocity to avoid clipping issues)
 					if (i.movement.y < 0 or i.global_position.y-(i.velocity.y*delta) > global_position.y):
@@ -48,13 +48,13 @@ func _on_body_entered(body):
 
 
 func _on_body_exited(body):
-	# remove from player list
+	# remove_at from player list
 	if (playerHit.has(body)):
 		playerHit.erase(body)
 
 func _on_DamageArea_area_entered(area):
 	# damage checking
-	if area.get("parent") != null and area.get_collision_layer_bit(19):
+	if area.get("parent") != null and area.get_collision_layer_value(19):
 		if !playerHit.has(area.parent):
 			forceDamage = true
 			playerHit.append(area.parent)
@@ -62,11 +62,11 @@ func _on_DamageArea_area_entered(area):
 func destroy():
 	emit_signal("destroyed")
 	# create explosion
-	var explosion = Explosion.instance()
+	var explosion = Explosion.instantiate()
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
 	# create animal
-	var animal = Animal.instance()
+	var animal = Animal.instantiate()
 	animal.animal = Global.animals[round(randf())]
 	get_parent().add_child(animal)
 	animal.global_position = global_position

@@ -14,7 +14,7 @@ extends Area2D
 #          note: null if player hasn't disconnected before in this contact session
 #
 # [n][3] - player's most recent connect time in msec -- prevent player from disconnecting due to ground touching
-#          if they were picked up in the last few frames from the ground.
+#          if they were picked up in the last few sprite_frames from the ground.
 #
 # XXX - consider a statically sized array that knows the count of players at the start (possibly stored in globals?)
 # for optimal efficiency.
@@ -26,35 +26,35 @@ var _playerContacts = 0
 # Sets the distance from the center of the hitbox (vertically) at which the contact may occur
 const _CONTACT_DISTANCE = 17
 
-# Twelve frames must pass between regrabs
+# Twelve sprite_frames must pass between regrabs
 const _CONTACT_TIME_LIMIT = ceil(12.0 * (1000.0 / 60.0))
 
 # If true, the player can drop through by holding down, bypassing the grab.
-export var holdDownToDrop = false
+@export var holdDownToDrop = false
 
 # If true, player will grab the center point of the hanger every time.
 # otherwise the player grabs the bar at the position that the player is located
 # at making contact.
-export var setCenter = false
+@export var setCenter = false
 
 # If false, the player can grab the bar while moving upwards. Otherise the bar
 # is only caught while the player is falling.
-export var onlyActiveMovingDown = true
+@export var onlyActiveMovingDown = true
 
-# If false, the player may turn around freely while on the bar. Otherwise the
+# If false, the player may turn around freely while checked the bar. Otherwise the
 # player's direction is locked to the same direction that they first contacted
 # the hanger in.
-export var lockPlayerDirection = true
+@export var lockPlayerDirection = true
 
 # Can pick up from ground
-export var groundPickup = false
+@export var groundPickup = false
 
 # Changes some behaviors of how the controls work. Only gets set by parent object
 # if the hanger is owned by a player.
 var playerCarryAI = false
 
 # Optionally set sound to play when making contact
-export var grabSound = preload("res://Audio/SFX/Player/Grab.wav")
+@export var grabSound = preload("res://Audio/SFX/Player/Grab.wav")
 
 func _ready():
 	$Grab.stream = grabSound
@@ -95,7 +95,7 @@ func set_player_disconnect_time(index):
 		players[index][2] = Time.get_ticks_msec()
 		#print("players[index][2] = ", players[index][2])
 		return
-	printerr("Attempted to set player disconnect time on invalid index")
+	printerr("Attempted to set player disconnect time checked invalid index")
 
 # Use to check if the elapsed disconnected time for the player at the index of
 # the array exceeds the elapsed time requirement for regrabbing.
@@ -104,7 +104,7 @@ func set_player_disconnect_time(index):
 # Returns false if the index is out of bounds
 func is_player_disconnect_time_elapsed(index):
 	if players.size() < index + 1:
-		printerr("Attempted to access player disconnect on invalid index")
+		printerr("Attempted to access player disconnect checked invalid index")
 		# returning false just so there is something to consume
 		return false
 	if players[index][2] == null:
@@ -151,7 +151,7 @@ func physics_process_connected(_delta, player, index):
 	player.cam_update()
 	
 func physics_process_disconnected(_delta, player, index):
-	# we use parent only for picking up off ground
+	# we use parent only for picking up unchecked ground
 	var parent = get_parent()
 	if (!groundPickup and player.ground):
 		return
@@ -159,7 +159,7 @@ func physics_process_disconnected(_delta, player, index):
 	if !check_grab(player, index):
 		return
 
-	# If it's going to pick a player up off the ground, it has to be moving upwards.
+	# If it's going to pick a player up unchecked the ground, it has to be moving upwards.
 	if player.ground and parent.movement.y > 0:
 		return
 	
@@ -192,10 +192,10 @@ func _physics_process(delta):
 
 # TODO: DimensionWarped note regarding player.poleGrabID - I don't like adding values to the player definition
 # to facilitate gimmicks or systems belonging to a specific gimmick, so I'm marking this section as something
-# I want to come back to. We should replace this with a dictionary on the player that gets its keys created by
-# gimmick systems on first use.
+# I want to come back to. We should replace this with a dictionary checked the player that gets its keys created by
+# gimmick systems checked first use.
 # This function is responsible for positioning the player while the player is connected to the hanger.
-# It also sets animation... that seems wrong, animation should be set on first contact, not repeatedly.
+# It also sets animation... that seems wrong, animation should be set checked first contact, not repeatedly.
 func connect_grab(player, index):
 	# Iterate player contacts by one. Only really used by Tails fly-carry right now, but who knows,
 	# maybe it could be part of a weight mechanic for some gimmick later.
@@ -268,17 +268,17 @@ func checkPlayerDisconnectByAction(player):
 
 func _process(_delta):
 	# All this process does is disconnects a grab if the player who owns it makes a deliberate action
-	# to jump off of the hanger.
+	# to jump unchecked of the hanger.
 
 	for index in players.size():
 		var jumpUp
 		var player = players[index][0]
 		
-		# verify state is valid for grabbing and not on floor
+		# verify state is valid for grabbing and not checked floor
 		if player.ground or player.currentState != player.STATES.AIR:
 			continue
 
-		# We don't need to do anything if the player isn't jumping off
+		# We don't need to do anything if the player isn't jumping unchecked
 		jumpUp = checkPlayerDisconnectByAction(player)
 		if jumpUp == 0:
 			continue
@@ -287,7 +287,7 @@ func _process(_delta):
 		if !check_grab(player,index):
 			continue
 
-		# Disconnect grab can either jump up or go down depending on player input and whether they
+		# Disconnect grab can either jump up or go down depending checked player input and whether they
 		# were being carried by AI when they made that input.
 		disconnect_grab(player, index, true, jumpUp == 1)
 
@@ -296,7 +296,7 @@ func check_grab(player, index):
 	if get_player_contact(index) != null:
 		return true
 	
-	# We never grab when the poleID is already on a valid poll (self isn't a valid pole... how this can get set I'm not sure)
+	# We never grab when the poleID is already checked a valid poll (self isn't a valid pole... how this can get set I'm not sure)
 	if player.poleGrabID != null and player.poleGrabID != self:
 		return false
 
@@ -333,7 +333,7 @@ func _on_Hanger_body_exited(body):
 	remove_player(body)
 
 func remove_player(player):
-	# remove player from contact point
+	# remove_at player from contact point
 	var getIndex = find_player(player)
 
 	# no player found
@@ -341,4 +341,4 @@ func remove_player(player):
 		return
 		
 	# Remove the player
-	players.remove(getIndex)
+	players.remove_at(getIndex)

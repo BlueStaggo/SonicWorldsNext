@@ -14,12 +14,12 @@
 [ext_resource path="res://Scripts/Player/States/Animation.gd" type="Script" id=12]
 [ext_resource path="res://Audio/SFX/Player/Spike.wav" type="AudioStream" id=13]
 [ext_resource path="res://Scripts/Player/States/Hit.gd" type="Script" id=14]
-[ext_resource path="res://Graphics/Items/shield_plain.png" type="Texture" id=15]
-[ext_resource path="res://Graphics/Items/shield_fire.png" type="Texture" id=16]
-[ext_resource path="res://Graphics/Items/shield_bubble.png" type="Texture" id=17]
-[ext_resource path="res://Graphics/Items/shield_lightning.png" type="Texture" id=18]
+[ext_resource path="res://Graphics/Items/shield_plain.png" type="Texture2D" id=15]
+[ext_resource path="res://Graphics/Items/shield_fire.png" type="Texture2D" id=16]
+[ext_resource path="res://Graphics/Items/shield_bubble.png" type="Texture2D" id=17]
+[ext_resource path="res://Graphics/Items/shield_lightning.png" type="Texture2D" id=18]
 [ext_resource path="res://Scripts/Player/ShieldAnimations.gd" type="Script" id=19]
-[ext_resource path="res://Graphics/Items/shield_insta.png" type="Texture" id=20]
+[ext_resource path="res://Graphics/Items/shield_insta.png" type="Texture2D" id=20]
 [ext_resource path="res://Audio/SFX/Player/Shield.wav" type="AudioStream" id=21]
 [ext_resource path="res://Audio/SFX/Player/Death.wav" type="AudioStream" id=22]
 [ext_resource path="res://Audio/SFX/Objects/RingL.wav" type="AudioStream" id=23]
@@ -32,7 +32,7 @@
 [ext_resource path="res://Audio/SFX/Player/FireUse.wav" type="AudioStream" id=30]
 [ext_resource path="res://Audio/SFX/Player/ElecUse.wav" type="AudioStream" id=31]
 [ext_resource path="res://Audio/SFX/Player/InstShield.wav" type="AudioStream" id=32]
-[ext_resource path="res://Graphics/Items/invincible_stars.png" type="Texture" id=33]
+[ext_resource path="res://Graphics/Items/invincible_stars.png" type="Texture2D" id=33]
 [ext_resource path="res://Audio/SFX/Gimmicks/Splash.wav" type="AudioStream" id=34]
 [ext_resource path="res://Scripts/Player/States/CorkScrew.gd" type="Script" id=35]
 [ext_resource path="res://Scripts/Player/States/JumpCancel.gd" type="Script" id=36]
@@ -45,10 +45,10 @@
 [ext_resource path="res://Scripts/Player/InstaShieldHitbox.gd" type="Script" id=43]
 [ext_resource path="res://Scripts/Player/States/PeelOut.gd" type="Script" id=44]
 [ext_resource path="res://Audio/SFX/Player/DropDash.wav" type="AudioStream" id=45]
-[ext_resource path="res://Graphics/Misc/SuperSparkles.png" type="Texture" id=46]
-[ext_resource path="res://Graphics/Misc/water_splash.png" type="Texture" id=47]
-[ext_resource path="res://Graphics/Misc/DropDashDust.png" type="Texture" id=48]
-[ext_resource path="res://Graphics/Misc/skid_dust.png" type="Texture" id=49]
+[ext_resource path="res://Graphics/Misc/SuperSparkles.png" type="Texture2D" id=46]
+[ext_resource path="res://Graphics/Misc/water_splash.png" type="Texture2D" id=47]
+[ext_resource path="res://Graphics/Misc/DropDashDust.png" type="Texture2D" id=48]
+[ext_resource path="res://Graphics/Misc/skid_dust.png" type="Texture2D" id=49]
 [ext_resource path="res://Audio/SFX/Player/Fly.wav" type="AudioStream" id=50]
 [ext_resource path="res://Audio/SFX/Player/AirNotice.wav" type="AudioStream" id=51]
 [ext_resource path="res://Audio/SFX/Player/GetAir.wav" type="AudioStream" id=52]
@@ -288,42 +288,42 @@ region = Rect2( 240, 0, 48, 48 )
 
 [sub_resource type="SpriteFrames" id=57]
 animations = [ {
-"frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 32 ), SubResource( 38 ), SubResource( 32 ), SubResource( 38 ), SubResource( 32 ), SubResource( 38 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ) ],
+"sprite_frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 32 ), SubResource( 38 ), SubResource( 32 ), SubResource( 38 ), SubResource( 32 ), SubResource( 38 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 34 ), SubResource( 37 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 32 ), SubResource( 36 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 34 ), SubResource( 35 ), SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ), SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "Bubble",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 30 ) ],
+"sprite_frames": [ SubResource( 30 ) ],
 "loop": false,
 "name": "BubbleAction",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 31 ) ],
+"sprite_frames": [ SubResource( 31 ) ],
 "loop": true,
 "name": "BubbleBounce",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
+"sprite_frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ) ],
 "loop": true,
 "name": "Default",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
+"sprite_frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "Elec",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 53 ), SubResource( 54 ), SubResource( 51 ), SubResource( 52 ), SubResource( 49 ), SubResource( 50 ), SubResource( 47 ), SubResource( 48 ) ],
+"sprite_frames": [ SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 53 ), SubResource( 54 ), SubResource( 55 ), SubResource( 56 ), SubResource( 53 ), SubResource( 54 ), SubResource( 51 ), SubResource( 52 ), SubResource( 49 ), SubResource( 50 ), SubResource( 47 ), SubResource( 48 ) ],
 "loop": true,
 "name": "Fire",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"sprite_frames": [ SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
 "loop": true,
 "name": "FireAction",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
+"sprite_frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ) ],
 "loop": false,
 "name": "Insta",
 "speed": 30.0
@@ -575,42 +575,42 @@ region = Rect2( 217, 0, 31, 31 )
 
 [sub_resource type="SpriteFrames" id=157]
 animations = [ {
-"frames": [ SubResource( 118 ), SubResource( 119 ), SubResource( 120 ), SubResource( 121 ), SubResource( 122 ), SubResource( 123 ), SubResource( 124 ), SubResource( 125 ), SubResource( 126 ), SubResource( 127 ) ],
+"sprite_frames": [ SubResource( 118 ), SubResource( 119 ), SubResource( 120 ), SubResource( 121 ), SubResource( 122 ), SubResource( 123 ), SubResource( 124 ), SubResource( 125 ), SubResource( 126 ), SubResource( 127 ) ],
 "loop": true,
 "name": "DropDash",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 149 ), SubResource( 150 ), SubResource( 151 ), SubResource( 152 ), SubResource( 153 ), SubResource( 154 ), SubResource( 155 ), SubResource( 156 ) ],
+"sprite_frames": [ SubResource( 149 ), SubResource( 150 ), SubResource( 151 ), SubResource( 152 ), SubResource( 153 ), SubResource( 154 ), SubResource( 155 ), SubResource( 156 ) ],
 "loop": true,
 "name": "Invincibility",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 128 ), SubResource( 129 ), SubResource( 130 ), SubResource( 131 ) ],
+"sprite_frames": [ SubResource( 128 ), SubResource( 129 ), SubResource( 130 ), SubResource( 131 ) ],
 "loop": false,
 "name": "SkidDust",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 140 ), SubResource( 141 ), SubResource( 142 ), SubResource( 143 ), SubResource( 144 ), SubResource( 145 ), SubResource( 146 ), SubResource( 147 ), SubResource( 148 ) ],
+"sprite_frames": [ SubResource( 140 ), SubResource( 141 ), SubResource( 142 ), SubResource( 143 ), SubResource( 144 ), SubResource( 145 ), SubResource( 146 ), SubResource( 147 ), SubResource( 148 ) ],
 "loop": false,
 "name": "Splash",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 139 ), SubResource( 132 ), SubResource( 133 ), SubResource( 134 ), SubResource( 135 ), SubResource( 136 ), SubResource( 137 ), SubResource( 138 ) ],
+"sprite_frames": [ SubResource( 139 ), SubResource( 132 ), SubResource( 133 ), SubResource( 134 ), SubResource( 135 ), SubResource( 136 ), SubResource( 137 ), SubResource( 138 ) ],
 "loop": false,
 "name": "StarSingle",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ), SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ) ],
+"sprite_frames": [ SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ), SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ) ],
 "loop": false,
 "name": "StarSinglePat2",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 116 ), SubResource( 117 ), SubResource( 59 ), SubResource( 117 ), SubResource( 116 ) ],
+"sprite_frames": [ SubResource( 116 ), SubResource( 117 ), SubResource( 59 ), SubResource( 117 ), SubResource( 116 ) ],
 "loop": true,
 "name": "Super",
 "speed": 30.0
 }, {
-"frames": [ SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ) ],
+"sprite_frames": [ SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 113 ), SubResource( 114 ), SubResource( 115 ) ],
 "loop": false,
 "name": "default",
 "speed": 30.0
@@ -622,7 +622,7 @@ extents = Vector2( 1, 2 )
 [sub_resource type="RectangleShape2D" id=169]
 extents = Vector2( 2, 1 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 4096
 collision_mask = 8192
 script = ExtResource( 1 )
@@ -713,13 +713,13 @@ autostart = true
 [node name="BubbleTimer" type="Timer" parent="."]
 autostart = true
 
-[node name="Sprite" parent="." instance=ExtResource( 2 )]
+[node name="Sprite2D" parent="." instance=ExtResource( 2 )]
 
-[node name="Shields" type="AnimatedSprite" parent="."]
+[node name="Shields" type="AnimatedSprite2D" parent="."]
 visible = false
 material = SubResource( 2 )
 z_index = 6
-frames = SubResource( 57 )
+sprite_frames = SubResource( 57 )
 animation = "Insta"
 frame = 5
 playing = true
@@ -778,22 +778,22 @@ modulate = Color( 0.529412, 0.607843, 0.882353, 1 )
 shape = SubResource( 58 )
 disabled = true
 
-[node name="ScreenCheck" type="VisibilityNotifier2D" parent="."]
+[node name="ScreenCheck" type="VisibleOnScreenNotifier2D" parent="."]
 scale = Vector2( 2.6, 2.7 )
 
 [node name="InvincibilityBarrier" type="Node2D" parent="."]
 visible = false
 z_index = 7
 
-[node name="StarGenerator1" type="AnimatedSprite" parent="InvincibilityBarrier"]
+[node name="StarGenerator1" type="AnimatedSprite2D" parent="InvincibilityBarrier"]
 position = Vector2( 0, -16 )
-frames = SubResource( 157 )
+sprite_frames = SubResource( 157 )
 animation = "Invincibility"
 playing = true
 
-[node name="StarGenerator2" type="AnimatedSprite" parent="InvincibilityBarrier"]
+[node name="StarGenerator2" type="AnimatedSprite2D" parent="InvincibilityBarrier"]
 position = Vector2( 0, 16 )
-frames = SubResource( 157 )
+sprite_frames = SubResource( 157 )
 animation = "Invincibility"
 playing = true
 

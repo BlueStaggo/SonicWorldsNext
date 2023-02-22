@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 # animation behaviours, if you want some specific behaviours you can program them with this
 var behaviour = 0

@@ -4,7 +4,7 @@ extends Node2D
 var bubbleType = 0
 
 var velocity = Vector2(1,-32)
-onready var offsetTime = randf()*4
+@onready var offsetTime = randf()*4
 
 func _ready():
 	$Bubble.frame = 0
@@ -53,6 +53,6 @@ func _on_BubbleCollect_body_entered(body):
 		$BubbleCollect/CollisionShape2D.call_deferred("set","disabled",true)
 		set_physics_process(false)
 
-# clear if off screen
+# clear if unchecked screen
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()

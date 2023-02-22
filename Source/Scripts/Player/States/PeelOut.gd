@@ -16,7 +16,7 @@ func _process(delta):
 	parent.spindashPower = min(parent.spindashPower+delta*24,dashPower)
 	parent.groundSpeed = speedCalc
 	
-	# animation based on speed
+	# animation based checked speed
 	if(speedCalc < 6*60):
 		parent.animator.play("walk")
 	elif(parent.spindashPower < dashPower):

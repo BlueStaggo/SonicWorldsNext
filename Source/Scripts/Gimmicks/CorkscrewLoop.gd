@@ -1,5 +1,5 @@
 extends Node2D
-tool
+@tool
 
 # player tracking arrays
 var playerListL = []
@@ -7,7 +7,7 @@ var playerListR = []
 var playerList = []
 
 # length of the corkscrew
-export var length = 1
+@export var length = 1
 
 func _ready():
 	# set initial positions for arrays
@@ -52,11 +52,11 @@ func _physics_process(_delta):
 					else:
 						i.animator.play("corkScrewOffset")
 			
-			# Set vertical movement to 0 so player doesn't fall off
+			# Set vertical movement to 0 so player doesn't fall unchecked
 			elif (i.currentState == i.STATES.CORKSCREW):
 				i.movement.y = 0
 			
-			# Set the player position based on x position and the distance between the corkscrews origin
+			# Set the player position based checked x position and the distance between the corkscrews origin
 			# this uses a cosine function to create a wave pattern
 			var yDistance = -32+(i.currentHitbox.NORMAL.y-19)
 			i.global_position.y = global_position.y+((cos(clamp((i.global_position.x-global_position.x)/(192*scale.x),-1,2*length)*PI)*yDistance)-2)*scale.y
@@ -69,7 +69,7 @@ func _physics_process(_delta):
 				var animSize = i.animator.current_animation_length
 				i.animator.advance(-i.animator.current_animation_position+animSize-(global_position.x-i.global_position.x+(192*scale.x))/((192*scale.x)*2)*animSize)
 			
-			# Check to see if to remove player
+			# Check to see if to remove_at player
 			if (i.global_position.x < $EnteranceL.global_position.x-8 or i.global_position.x > $EnteranceR.global_position.x+8 or abs(i.movement.x) < i.top/2 or i.currentState == i.STATES.JUMP):
 				if (playerList.has(i)):
 					if i.currentState == i.STATES.CORKSCREW:
@@ -105,7 +105,7 @@ func _on_EnteranceR_body_exited(body):
 	if (playerListR.has(body)):
 		playerListR.erase(body)
 
-# draw self several times based on length
+# draw self several times based checked length
 func _draw():
 	if Engine.is_editor_hint():
 		if length > 0:

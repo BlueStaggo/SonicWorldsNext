@@ -1,12 +1,12 @@
-class_name BossBase extends KinematicBody2D
+class_name BossBase extends CharacterBody2D
 
-export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
+@export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
 var playerHit = []
 
-export var hp = 8
+@export var hp = 8
 var flashTimer = 0
 var forceDamage = false
-export var hitTime = 32.0/60.0
+@export var hitTime = 32.0/60.0
 
 signal got_hit
 signal hit_player
@@ -29,8 +29,8 @@ func _physics_process(delta):
 		if playerHit.size() > 0:
 			# loop through players as i
 			for i in playerHit:
-				# check if damage entity is on or supertime is bigger then 0
-				if (i.get_collision_layer_bit(19) or i.supTime > 0 or forceDamage):
+				# check if damage entity is checked or supertime is bigger then 0
+				if (i.get_collision_layer_value(19) or i.supTime > 0 or forceDamage):
 					i.movement = i.movement*-0.5
 					# hit
 					if hp > 0:
@@ -62,21 +62,21 @@ func _on_body_entered(body):
 
 
 func _on_body_exited(body):
-	# remove from player list
+	# remove_at from player list
 	if (playerHit.has(body)):
 		playerHit.erase(body)
 
 
 func _on_DamageArea_area_entered(area):
 	# damage checking
-	if area.get("parent") != null and area.get_collision_layer_bit(19):
+	if area.get("parent") != null and area.get_collision_layer_value(19):
 		if !playerHit.has(area.parent):
 			forceDamage = true
 			playerHit.append(area.parent)
 
 
 func _on_HitBox_area_exited(area):
-	# remove from damage area
+	# remove_at from damage area
 	if area.get("parent") != null:
 		if playerHit.has(area.parent):
 			playerHit.erase(area.parent)

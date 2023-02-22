@@ -1,12 +1,12 @@
-tool
-extends KinematicBody2D
+@tool
+extends CharacterBody2D
 
 var physics = false
 var grv = 0.21875
 var yspeed = 0
 var playerTouch = null
 var isActive = true
-export (int, "Ring", "Speed Shoes", "Invincibility", "Shield", "Elec Shield", "Fire Shield",
+@export (int, "Ring", "Speed Shoes", "Invincibility", "Shield", "Elec Shield", "Fire Shield",
 "Bubble Shield", "Super", "Blue Ring", "Boost", "1up") var item = 0
 var Explosion = preload("res://Entities/Misc/BadnickSmoke.tscn")
 
@@ -29,7 +29,7 @@ func destroy():
 	if !isActive:
 		return false
 	# create explosion
-	var explosion = Explosion.instance()
+	var explosion = Explosion.instantiate()
 	get_parent().add_child(explosion)
 	explosion.global_position = global_position
 	
@@ -41,10 +41,10 @@ func destroy():
 	# play destruction animation
 	$Animator.play("DestroyMonitor")
 	$SFX/Destroy.play()
-	# remove visibility enabler to prevent items from not being activated
-	$VisibilityEnabler2D.queue_free()
+	# remove_at visibility enabler to prevent items from not being activated
+	$VisibleOnScreenEnabler2D.queue_free()
 	# wait for animation to finish
-	yield($Animator,"animation_changed")
+	await $Animator.animation_changed
 	# enable effect
 	match (item):
 		0: # Rings
@@ -60,7 +60,7 @@ func destroy():
 		2: # Invincibility
 			if !playerTouch.super:
 				playerTouch.supTime = 30
-				playerTouch.shieldSprite.visible = false # turn off barrier for stars
+				playerTouch.shieldSprite.visible = false # turn unchecked barrier for stars
 				playerTouch.get_node("InvincibilityBarrier").visible = true
 				Global.currentTheme = 0
 				Global.effectTheme.stream = Global.themes[Global.currentTheme]
@@ -85,7 +85,7 @@ func destroy():
 
 func _physics_process(delta):
 	if !Engine.is_editor_hint():
-		# if physics are on make em fall
+		# if physics are checked make em fall
 		if physics:
 			var collide = move_and_collide(Vector2(0,yspeed)*delta)
 			yspeed += grv/GlobalFunctions.div_by_delta(delta)
@@ -101,7 +101,7 @@ func physics_collision(body, hitVector):
 		if body.movement.y < 0:
 			body.movement.y *= -1
 	# check that player has the rolling layer bit set
-	elif body.get_collision_layer_bit(19):
+	elif body.get_collision_layer_value(19):
 		# Bounce from below
 		if hitVector.x != 0:
 			# check conditions for interaction (and the player is the first player)

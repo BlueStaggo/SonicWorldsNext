@@ -21,8 +21,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 1 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 0, 0 ), Color( 1, 1, 1, 1 ) ]
 }
@@ -36,8 +36,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 0, 0 ) ]
 }
@@ -48,8 +48,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 2 ]
 }
@@ -64,8 +64,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ 1 ]
 }
@@ -80,23 +80,23 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ 2 ]
 }
 
 [node name="Main" type="Node2D"]
-pause_mode = 2
+process_mode = 2
 script = ExtResource( 2 )
 
 [node name="SceneLoader" type="Node" parent="."]
-pause_mode = 1
+process_mode = 1
 
 [node name="PoweredByWorlds" parent="SceneLoader" instance=ExtResource( 4 )]
 
 [node name="Music" type="Node" parent="."]
-pause_mode = 1
+process_mode = 1
 
 [node name="Music" type="AudioStreamPlayer" parent="Music"]
 autoplay = true
@@ -119,7 +119,7 @@ stream = ExtResource( 3 )
 bus = "Music"
 
 [node name="GUI" type="CanvasLayer" parent="."]
-pause_mode = 2
+process_mode = 2
 layer = 128
 
 [node name="ScreenFader" type="ColorRect" parent="GUI"]

@@ -16,7 +16,7 @@
 
 # The first state will have MyFancyPlatform drift over to the location of StateMover_02.
 # The second state will then have the platform be moved to a position picked based
-# on a vector provided to StateMoverTranslational via exported variable
+# checked a vector provided to StateMoverTranslational via exported variable
 # The final state will move the platform to the position of StateMover_03
 
 extends Node2D

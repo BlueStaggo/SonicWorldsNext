@@ -1,6 +1,6 @@
 extends Node2D
-var animType = 0 # 0 flap, 1 change on fall
-export (int, "Bird", "Squirrel", "Rabbit", "Chicken", "Penguin", "Seal", "Pig", "Eagle", "Mouse", "Monkey", "Turtle", "Bear")var animal = 0
+var animType = 0 # 0 flap, 1 change checked fall
+@export (int, "Bird", "Squirrel", "Rabbit", "Chicken", "Penguin", "Seal", "Pig", "Eagle", "Mouse", "Monkey", "Turtle", "Bear")var animal = 0
 
 var animalPhysics = [
 # (Bird)
@@ -86,7 +86,7 @@ func _physics_process(delta):
 	# move, ignore collission since we're only checking floors
 	translate(velocity*delta)
 	
-	# if on floor and falling then bounce
+	# if checked floor and falling then bounce
 	if ($FloorCheck.is_colliding() and velocity.y > 0):
 		speed = animalPhysics[animal].x*60
 		bouncePower = animalPhysics[animal].y*60
@@ -119,6 +119,6 @@ func _process(delta):
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 
-# set active on time out (some spawning scenerios like a capsule sets a delay)
+# set active checked time out (some spawning scenerios like a capsule sets a delay)
 func _on_ActivationTimer_timeout():
 	active = true

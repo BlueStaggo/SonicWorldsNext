@@ -1,8 +1,8 @@
-tool
+@tool
 extends StaticBody2D
 
-export (int, "Yellow", "Red") var type = 0
-export (int, "Up", "Down", "Right", "Left", "Diagonal Up Right", "Diagonal Up Left", "Diagonal Down Right", "Diagonal Down Left") var springDirection = 0
+@export (int, "Yellow", "Red") var type = 0
+@export (int, "Up", "Down", "Right", "Left", "Diagonal Up Right", "Diagonal Up Left", "Diagonal Down Right", "Diagonal Down Left") var springDirection = 0
 var hitDirection = Vector2.UP
 var animList = ["SpringUp","SpringRight","SpringUpLeft","SpringUpRight"]
 var animID = 0
@@ -29,14 +29,14 @@ func set_spring():
 			$HitBox.disabled = false
 			$DiagonalHitBox/AreaShape.disabled = true
 			animID = 0
-			$HitBox.rotation = deg2rad(0)
+			$HitBox.rotation = deg_to_rad(0)
 			scale = Vector2(1,1-(springDirection*2))
 			hitDirection = Vector2(0,-1+(springDirection*2))
 		2, 3: # right, left
 			$HitBox.disabled = false
 			$DiagonalHitBox/AreaShape.disabled = true
 			animID = 1
-			$HitBox.rotation = deg2rad(90)
+			$HitBox.rotation = deg_to_rad(90)
 			scale = Vector2(1-((springDirection-2)*2),1)
 			hitDirection = Vector2(1-((springDirection-2)*2),0)
 		4, 6: #diagonal right
@@ -44,14 +44,14 @@ func set_spring():
 			$DiagonalHitBox/AreaShape.disabled = false
 			animID = 3
 			scale = Vector2(1,1-(springDirection-4))
-			# place .normalized() at the end for CD physics
+			# place super.normalized() at the end for CD physics
 			hitDirection = scale*Vector2(1,-1)
 		5, 7: #diagonal left
 			$HitBox.disabled = true
 			$DiagonalHitBox/AreaShape.disabled = false
 			animID = 2
 			scale = Vector2(1,1-(springDirection-5))
-			# place .normalized() at the end for CD physics
+			# place super.normalized() at the end for CD physics
 			hitDirection = -scale
 			
 	$SpringAnimator.play(animList[animID])
@@ -70,7 +70,7 @@ func physics_collision(body, hitVector):
 			# disable ground
 			body.ground = false
 			body.set_state(body.STATES.AIR)
-			# figure out the animation based on the players current animation
+			# figure out the animation based checked the players current animation
 			var curAnim = "walk"
 			match(body.animator.current_animation):
 				"walk", "run", "peelOut":
@@ -87,7 +87,7 @@ func physics_collision(body, hitVector):
 			body.set_state(body.STATES.AIR)
 		# horizontal movement
 		else:
-			# exit out of state on certain states
+			# exit out of state checked certain states
 			match(body.currentState):
 				body.STATES.GLIDE:
 					if !body.ground:
@@ -95,7 +95,7 @@ func physics_collision(body, hitVector):
 						body.set_state(body.STATES.AIR)
 			# set horizontal speed
 			body.movement.x = setMove.x
-			body.horizontalLockTimer = (15.0/60.0) # lock for 15 frames
+			body.horizontalLockTimer = (15.0/60.0) # lock for 15 sprite_frames
 			body.direction = sign(setMove.x)
 		$SpringAnimator.play(animList[animID])
 		$sfxSpring.play()
@@ -110,7 +110,7 @@ func _on_Diagonal_body_entered(body):
 	$SpringAnimator.play(animList[animID])
 	if (hitDirection.y < 0):
 		body.set_state(body.STATES.AIR)
-		# figure out the animation based on the players current animation
+		# figure out the animation based checked the players current animation
 		var curAnim = "walk"
 		match(body.animator.current_animation):
 			"walk", "run", "peelOut":

@@ -1,14 +1,14 @@
 extends EnemyBase
-tool
+@tool
 
-export var orbs = 4
-export var speed = -100
-export var moveSpeed = -10
-export var distance = 16
+@export var orbs = 4
+@export var speed = -100
+@export var moveSpeed = -10
+@export var distance = 16
 var spinOffset = 0
-export var classicOrbi = true
+@export var classicOrbi = true
 
-onready var orbList = [get_node("Orb")]
+@onready var orbList = [get_node("Orb")]
 
 func _ready():
 	if !Engine.is_editor_hint():
@@ -18,11 +18,11 @@ func _ready():
 		
 		# initial velocity
 		velocity.x = moveSpeed
-		# set scale based on direction
+		# set scale based checked direction
 		if moveSpeed != 0:
 			scale.x = sign(-velocity.x)*abs(scale.x)
 		
-		# create duplicates of the surrounding orbs based on the total
+		# create duplicates of the surrounding orbs based checked the total
 		for _i in range(orbs-1):
 			var newOrb = $Orb.duplicate()
 			add_child(newOrb)
@@ -39,17 +39,17 @@ func _physics_process(delta):
 		# classic behaviour (just rotate the orbs, don't touch initial velocity)
 		if classicOrbi:
 			spinOffset += speed*delta
-			# rotate the orbs based on spinOffset
+			# rotate the orbs based checked spinOffset
 			for i in range(orbList.size()):
 				var getOrb = orbList[i]
-				getOrb.position = (Vector2.RIGHT*distance).rotated(deg2rad(spinOffset+((360/orbs)*i)))
+				getOrb.position = (Vector2.RIGHT*distance).rotated(deg_to_rad(spinOffset+((360/orbs)*i)))
 		# Launch base behaviour
 		else:
 			# check player exists
 			if Global.players.size() > 0:
 				var player = Global.players[0]
 				
-				# set scale based on direction
+				# set scale based checked direction
 				if sign(global_position.x-player.global_position.x) != 0:
 					$orbinaut.scale.x = sign(global_position.x-player.global_position.x)
 				
@@ -59,4 +59,4 @@ func _physics_process(delta):
 				spinOffset += speed*5*delta*sign(abs(velocity.x))*$orbinaut.scale.x
 				for i in range(orbList.size()):
 					var getOrb = orbList[i]
-					getOrb.position = (Vector2.RIGHT*distance).rotated(deg2rad(spinOffset+((360/orbs)*i)))
+					getOrb.position = (Vector2.RIGHT*distance).rotated(deg_to_rad(spinOffset+((360/orbs)*i)))

@@ -1,6 +1,6 @@
 extends Node2D
 
-# If this system is used, at least one state zero must be used to kick off the system
+# If this system is used, at least one state zero must be used to kick unchecked the system
 var parent
 
 # Called when the node enters the scene tree for the first time.

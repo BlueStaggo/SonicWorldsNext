@@ -1,21 +1,21 @@
-tool
+@tool
 extends Node2D
 
 # Vertical size of the pylon (center only - edges are constant sized)
-export var vert_size = 96
+@export var vert_size = 96
 # How fast the player should be launched from the pylon when pressing jump
-export var launch_speed = 960
+@export var launch_speed = 960
 # How fast the player should be launching veritcally from the pylon after jumping
-# off
-export var launch_vertical_speed = 110
+# unchecked
+@export var launch_vertical_speed = 110
 # How fast the player climbs up/down the pylon
-export var climb_speed = 80
+@export var climb_speed = 80
 
 # An editor only variable. If last_size doesn't match vert_size during process
 # in tool mode, we resize everything in the editor.
 var last_size
 # How much time it takes to make a full rotation in seconds. The full cycle lasts
-# 32 frames in Sonic and Knuckles.
+# 32 sprite_frames in Sonic and Knuckles.
 var rotate_time = (32.0 / 60.0)
 # array of players currently interacting with the gimmick
 var players = []
@@ -23,7 +23,7 @@ var players = []
 var players_rotation_timer = []
 # array of players z levels upon interacting with the gimmick. This is needed
 # because the player's z level will be pushed behind the pylon and in front of
-# the pylon depending on their position in the spinning animation and we need
+# the pylon depending checked their position in the spinning animation and we need
 # to be able to restore it when the player leaves the gimmick.
 var players_z_level = []
 
@@ -60,7 +60,7 @@ func process_game(delta):
 		var getIndex = players.find(i)
 		var yInput = i.get_y_input()
 
-		# If the player isn't on the bar, skip it.
+		# If the player isn't checked the bar, skip it.
 		if i.currentState != i.STATES.ANIMATION:
 			continue
 		
@@ -75,7 +75,7 @@ func process_game(delta):
 			i.movement.y = -climb_speed
 		i.movement.x = 0
 		
-		# Position the player based on their position in rotation.
+		# Position the player based checked their position in rotation.
 		i.global_position.x = get_global_position().x + 7 * sin((players_rotation_timer[getIndex] / rotate_time * 2 * PI))
 		
 		if (i.global_position.y < get_global_position().y - vert_size - 4):
@@ -84,7 +84,7 @@ func process_game(delta):
 		if (i.global_position.y > get_global_position().y - 30):
 			i.global_position.y = get_global_position().y - 30
 			
-		# Animate the player based on their position in rotation.
+		# Animate the player based checked their position in rotation.
 		i.animator.seek(players_rotation_timer[getIndex] / rotate_time)
 		
 		if fmod((players_rotation_timer[getIndex] / rotate_time) - 0.25, 1.0) > 0.5:
@@ -104,7 +104,7 @@ func process_game(delta):
 				i.movement.x = launch_speed
 	pass
 
-# Tool Function to reset the size and position of elements within the object based on vert_size	
+# Tool Function to reset the size and position of elements within the object based checked vert_size	
 func process_editor():
 	var mainSprite = $FBZ_Pylon_Sprite
 	var topSprite = $FBZ_Pylon_Top
@@ -157,14 +157,14 @@ func _on_FBZ_Pylon_Area_body_exited(body):
 	
 func remove_player(player):
 	if players.has(player):
-		# Don't allow removal of someone who is still on the vertical bar. This can occur with
+		# Don't allow removal of someone who is still checked the vertical bar. This can occur with
 		# high speeds. Preventing this should be fine since the player will be brought back into
-		# collision overlap range by virtue of being on the bar.
+		# collision overlap range by virtue of being checked the bar.
 		if (player.currentState == player.STATES.ANIMATION):
 			return
 		player.animator.play("roll")
 		# Clean out the player from all player-linked arrays.
 		var getIndex = players.find(player)
 		players.erase(player)
-		players_rotation_timer.remove(getIndex)
-		players_z_level.remove(getIndex)
+		players_rotation_timer.remove_at(getIndex)
+		players_z_level.remove_at(getIndex)

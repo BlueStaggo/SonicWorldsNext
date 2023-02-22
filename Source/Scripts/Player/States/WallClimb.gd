@@ -27,7 +27,7 @@ func _physics_process(delta):
 				parent.movement.y = 0
 		
 			
-		# go to normal if on floor
+		# go to normal if checked floor
 		if parent.ground:
 			parent.animator.play("walk")
 			parent.groundSpeed = 1
@@ -55,7 +55,7 @@ func _physics_process(delta):
 		parent.horizontalSensor.cast_to += parent.horizontalSensor.cast_to.normalized()*4
 		parent.horizontalSensor.force_raycast_update()
 		
-		# check if the player can climb on top of the platform
+		# check if the player can climb checked top of the platform
 		if !parent.horizontalSensor.is_colliding() and !parent.verticalSensorLeft.is_colliding() and !parent.verticalSensorRight.is_colliding():
 			climbPosition = parent.global_position.ceil()+Vector2(0,5)
 			parent.movement = Vector2.ZERO
@@ -69,7 +69,7 @@ func _physics_process(delta):
 		# stop current animations and play climb up
 		parent.animator.stop()
 		parent.animator.play("climbUp")
-		# use offset based on the current animations and how many poses there are in shiftPoses (shiftPoses should match how many frames you're using)
+		# use offset based checked the current animations and how many poses there are in shiftPoses (shiftPoses should match how many sprite_frames you're using)
 		var offset = (climbTimer/parent.animator.current_animation_length)*shiftPoses.size()
 		
 		parent.animator.advance(floor(offset)*0.1)
@@ -81,7 +81,7 @@ func _physics_process(delta):
 			parent.global_position = climbPosition+(shiftPoses[shiftPoses.size()-1]*Vector2(parent.direction,1))
 
 func _process(_delta):
-	# jumping off
+	# jumping unchecked
 	if (parent.inputs[parent.INPUTS.ACTION] == 1 or parent.inputs[parent.INPUTS.ACTION2] == 1 or parent.inputs[parent.INPUTS.ACTION3] == 1) and !climbUp:
 		parent.movement = Vector2(-4*60*parent.direction,-4*60)
 		parent.direction *= -1

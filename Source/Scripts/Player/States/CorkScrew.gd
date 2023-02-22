@@ -1,7 +1,7 @@
 extends "res://Scripts/Player/State.gd"
 
 func _process(_delta):
-	# jumping off
+	# jumping unchecked
 	if parent.inputs[parent.INPUTS.ACTION] == 1 or parent.inputs[parent.INPUTS.ACTION2] == 1 or parent.inputs[parent.INPUTS.ACTION3] == 1:
 		parent.action_jump()
 	
@@ -15,7 +15,7 @@ func _physics_process(delta):
 	# gravity
 	parent.movement.y += parent.grv/GlobalFunctions.div_by_delta(delta)
 	
-	# determine flip based on the direction
+	# determine flip based checked the direction
 	parent.sprite.flip_h = (parent.direction < 0)
 	
 	# movement

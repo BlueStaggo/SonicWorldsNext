@@ -1,9 +1,9 @@
 extends Area2D
-tool
+@tool
 
-export (int, "left", "right") var boostDirection = 0
+@export (int, "left", "right") var boostDirection = 0
 var dirMemory = boostDirection
-export var speed = 16
+@export var speed = 16
 
 func _ready():
 	# set direction
@@ -19,7 +19,7 @@ func _on_SpeedBooster_body_entered(body):
 	# DO THE BOOST, WHOOOOOSH!!!!!!!
 	body.movement.x = speed*(-1+(boostDirection*2))*60
 	$sfxSpring.play()
-	# exit out of state on certain states
+	# exit out of state checked certain states
 	match(body.currentState):
 		body.STATES.GLIDE:
 			if !body.ground:

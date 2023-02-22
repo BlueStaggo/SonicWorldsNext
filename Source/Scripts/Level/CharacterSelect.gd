@@ -1,8 +1,8 @@
 extends Node2D
 
 
-export var music = preload("res://Audio/Soundtrack/10. SWD_CharacterSelect.ogg")
-export (PackedScene) var nextZone = load("res://Scene/Zones/BaseZone.tscn")
+@export var music = preload("res://Audio/Soundtrack/10. SWD_CharacterSelect.ogg")
+@export (PackedScene) var nextZone = load("res://Scene/Zones/BaseZone.tscn")
 var selected = false
 
 # character labels, the amount of labels in here determines the total amount of options, see the set character option at the end for settings
@@ -36,7 +36,7 @@ func _input(event):
 		$UI/Labels/Control/Character.string = characterLabels[characterID]
 		$UI/Labels/Control/Level.string = levelLabels[levelID]
 		
-		# turn on and off visibility of the characters based on the current selection
+		# turn checked and unchecked visibility of the characters based checked the current selection
 		match(characterID):
 			0: # Sonic and Tails
 				$UI/Labels/CharacterOrigin/Sonic.visible = true
@@ -82,4 +82,4 @@ func _input(event):
 				2: # Chunk Zone Act 1
 					Global.nextZone = load("res://Scene/Zones/ChunkZone.tscn")
 			
-			Global.main.change_scene(Global.nextZone,"FadeOut","FadeOut","SetSub",1)
+			Global.main.change_scene_to_file(Global.nextZone,"FadeOut","FadeOut","SetSub",1)

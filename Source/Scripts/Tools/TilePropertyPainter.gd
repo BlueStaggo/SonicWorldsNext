@@ -1,14 +1,14 @@
 extends TileMap
-export (NodePath) var tileMapLink
+@export (NodePath) var tileMapLink
 
-onready var lowSolid = $LowSolid
-onready var highSolid = $HighSolid
-onready var background = $Background
-onready var lowTop = $LowTop
-onready var highTop = $HighTop
-onready var top = $Top
-# tile list corresponds with the look up varaibles based on the tile ID of any placed tiles
-onready var tileList = [highSolid,lowSolid,background,highTop,lowTop,top]
+@onready var lowSolid = $LowSolid
+@onready var highSolid = $HighSolid
+@onready var background = $Background
+@onready var lowTop = $LowTop
+@onready var highTop = $HighTop
+@onready var top = $Top
+# tile list corresponds with the look up varaibles based checked the tile ID of any placed tiles
+@onready var tileList = [highSolid,lowSolid,background,highTop,lowTop,top]
 
 var tileMap = null
 
@@ -25,7 +25,7 @@ func _ready():
 			collision_mask = collision_layer
 			i.z_index = tileMap.z_index
 		
-		# bring tiles into the corresponding layers based on the current painter tile
+		# bring tiles into the corresponding layers based checked the current painter tile
 		for i in get_used_cells():
 			var tileUV = get_cell_autotile_coord(i.x,i.y)
 			var tilemapID = tileUV.x+(tileUV.y*3)

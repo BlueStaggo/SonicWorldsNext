@@ -1,17 +1,17 @@
-tool
+@tool
 extends "res://Scripts/Objects/Hazard.gd"
 
-export var size = Vector2(32,32)
+@export var size = Vector2(32,32)
 
 # graphic pointers
-export var lavaGraphicTop = [preload("res://Graphics/Hazards/LavaTop1.png"),preload("res://Graphics/Hazards/LavaTop2.png"),
+@export var lavaGraphicTop = [preload("res://Graphics/Hazards/LavaTop1.png"),preload("res://Graphics/Hazards/LavaTop2.png"),
 preload("res://Graphics/Hazards/LavaTop3.png"),preload("res://Graphics/Hazards/LavaTop4.png")]
 
-export var lavaGraphic = [preload("res://Graphics/Hazards/LavaTiles1.png"),preload("res://Graphics/Hazards/LavaTiles2.png"),
+@export var lavaGraphic = [preload("res://Graphics/Hazards/LavaTiles1.png"),preload("res://Graphics/Hazards/LavaTiles2.png"),
 preload("res://Graphics/Hazards/LavaTiles3.png"),preload("res://Graphics/Hazards/LavaTiles4.png")]
 
 var frame = 0
-export var animSpeed = 8
+@export var animSpeed = 8
 
 func _ready():
 	update_graphics()

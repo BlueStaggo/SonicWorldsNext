@@ -1,15 +1,15 @@
 extends Area2D
 var active = false
-export var checkPointID = 0
+@export var checkPointID = 0
 
 func _ready():
 	# add self to global check point list (it's cleared in the stage start script in global)
 	Global.checkPoints.append(self)
 	
-	# if we're the current checkpoint then activate on level start
+	# if we're the current checkpoint then activate checked level start
 	if Global.currentCheckPoint == checkPointID:
 		# give a frame to to check activation
-		yield(get_tree(),"idle_frame")
+		await get_tree().idle_frame
 		activate()
 
 

@@ -13,12 +13,12 @@ var isFall = false
 var landed = false
 var sliding = false
 
-# add a ground buffer so that the player won't have just 1 frame on the ground send them into a slide (for example monitors)
+# add a ground buffer so that the player won't have just 1 frame checked the ground send them into a slide (for example monitors)
 var groundBuffer = 0
 
 func state_activated():
 	groundBuffer = 0
-	# if no movement on the x axis then go into a fall immediately
+	# if no movement checked the x axis then go into a fall immediately
 	if parent.movement.x == 0:
 		isFall = true
 		landed = false
@@ -90,14 +90,14 @@ func _physics_process(delta):
 				speedPreservation = abs(parent.movement.x)
 			if turnTimer > 0:
 				turnTimer -= 2.8125*delta*60
-				parent.movement.x = speedPreservation*cos(deg2rad(turnTimer))
+				parent.movement.x = speedPreservation*cos(deg_to_rad(turnTimer))
 		# right
 		elif parent.direction < 0:
 			if turnTimer <= 0:
 				speedPreservation = abs(parent.movement.x)
 			if turnTimer < 180:
 				turnTimer += 2.8125*delta*60
-				parent.movement.x = speedPreservation*cos(deg2rad(turnTimer))
+				parent.movement.x = speedPreservation*cos(deg_to_rad(turnTimer))
 		
 		turnTimer = clamp(turnTimer,0,180)
 		
@@ -121,7 +121,7 @@ func _physics_process(delta):
 		elif parent.movement.y > 0.5*60:
 			parent.movement.y -= glideGrav/GlobalFunctions.div_by_delta(delta)
 		
-		# Go into sliding if on ground
+		# Go into sliding if checked ground
 		if parent.ground and !sliding and groundBuffer >= 1:
 			parent.animator.play("glideSlide")
 			if parent.movement.x != 0:
@@ -138,7 +138,7 @@ func _physics_process(delta):
 		else:
 			groundBuffer = 0
 		
-		# Go into wall cling if on wall
+		# Go into wall cling if checked wall
 		parent.horizontalSensor.force_raycast_update()
 		if parent.horizontalSensor.is_colliding() and !parent.ground:
 			# set direction
@@ -152,7 +152,7 @@ func _physics_process(delta):
 			parent.animator.play("climb")
 			parent.movement = Vector2.ZERO
 		
-		# prevent getting stuck on corners
+		# prevent getting stuck checked corners
 		parent.horizontalSensor.position.y = parent.get_node("HitBox").shape.extents.y-1
 		parent.horizontalSensor.force_raycast_update()
 		if parent.horizontalSensor.is_colliding() and !parent.ground:
@@ -172,7 +172,7 @@ func _physics_process(delta):
 			parent.set_hitbox(parent.currentHitbox.NORMAL)
 			parent.animator.play("glideGetUp")
 			# wait for animation to finish and check that the state is still the same
-			yield(parent.animator,"animation_finished")
+			await parent.animator.animation_finished
 			if parent.currentState == parent.STATES.GLIDE and sliding:
 				parent.set_state(parent.STATES.NORMAL)
 		
@@ -180,7 +180,7 @@ func _physics_process(delta):
 		if !is_equal_approx(parent.snap_angle(parent.gravityAngle),parent.snap_angle(parent.global_rotation)):
 			parent.movement.x = 0
 		
-		# check for ground, if not on ground go into falling
+		# check for ground, if not checked ground go into falling
 		if !parent.ground and groundBuffer >= 1:
 			sliding = false
 			parent.animator.play("glideFall")
@@ -215,7 +215,7 @@ func _physics_process(delta):
 			parent.movement = Vector2.ZERO
 			parent.animator.play("land")
 			# wait for landing animation to finish and check that the state is still the same
-			yield(parent.animator,"animation_finished")
+			await parent.animator.animation_finished
 			if parent.currentState == parent.STATES.GLIDE and isFall:
 				parent.set_state(parent.STATES.NORMAL)
 
@@ -226,9 +226,9 @@ func _on_SkidDustTimer_timeout():
 		if !sliding or (parent.movement.x == 0 and parent.ground):
 			$"../../SkidDustTimer".stop()
 		elif parent.ground:
-			var dust = parent.Particle.instance()
+			var dust = parent.Particle.instantiate()
 			dust.play("SkidDust")
-			dust.global_position = parent.global_position+(Vector2.DOWN*8).rotated(deg2rad(parent.spriteRotation-90))
+			dust.global_position = parent.global_position+(Vector2.DOWN*8).rotated(deg_to_rad(parent.spriteRotation-90))
 			dust.z_index = 10
 			parent.get_parent().add_child(dust)
 			parent.sfx[28].play()

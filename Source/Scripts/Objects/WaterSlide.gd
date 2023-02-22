@@ -1,18 +1,18 @@
 extends Area2D
 
 var players = []
-export var speed = 400.0
-export var force = 5.0 # how fast to push the players velocity to speed
+@export var speed = 400.0
+@export var force = 5.0 # how fast to push the players velocity to speed
 
 func _ready():
 	visible = false
 
 func _physics_process(delta):
-	# if any players are found in the array, if they're on the ground make them roll
+	# if any players are found in the array, if they're checked the ground make them roll
 	if players.size() > 0:
 		for i in players:
 			if i.ground:
-				# determine the direction of the arrow based on scale and rotation
+				# determine the direction of the arrow based checked scale and rotation
 				var getDir = sign(scale.rotated(rotation).x)
 				
 				# if below speed, gradually force the movement to the speed value
@@ -25,7 +25,7 @@ func _physics_process(delta):
 				# force player direction
 				if getDir != 0:
 					i.direction = getDir
-					# set flipping on sprite
+					# set flipping checked sprite
 					i.sprite.flip_h = (i.direction < 0)
 				
 				# force slide state

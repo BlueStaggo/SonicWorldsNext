@@ -1,9 +1,9 @@
 extends Node2D
-tool
+@tool
 
-# this moves back and forth based on a timer and speed, direction is angle based
-export var distance = 64
-export var wait = 1.0
+# this moves back and forth based checked a timer and speed, direction is angle based
+@export var distance = 64
+@export var wait = 1.0
 var timer = wait
 var extend = false
 

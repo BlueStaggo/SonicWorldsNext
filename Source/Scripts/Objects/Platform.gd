@@ -1,13 +1,13 @@
-tool
+@tool
 extends Node2D
 
-export var platformSprite = preload("res://Graphics/Tiles/WorldsTiles/Platform.png")
-export var endPosition = Vector2(256,0) # End travel point for platform
-export var speed = 1.0 # How fast to move
-export(float, 0.0, 3.1415) var offset = 0.0 # Initial offset, this can be used to offset the movements between other platforms
+@export var platformSprite = preload("res://Graphics/Tiles/WorldsTiles/Platform.png")
+@export var endPosition = Vector2(256,0) # End travel point for platform
+@export var speed = 1.0 # How fast to move
+@export var offset = 0.0 # Initial offset, this can be used to offset the movements between other platforms # (float, 0.0, 3.1415)
 
-export var dropSlightly = true # Drop slightly when a player stands on top
-export var fallTimer = 0.0 # does the platform fall? 0 sets it to not fall
+@export var dropSlightly = true # Drop slightly when a player stands checked top
+@export var fallTimer = 0.0 # does the platform fall? 0 sets it to not fall
 
 var offsetTimer = 0
 var dropDistance = 0
@@ -18,28 +18,28 @@ var platformDepth = 4
 
 func _ready():
 	# Change platform shape
-	$Platform/Shape.shape.extents.x = platformSprite.get_size().x/2
-	$Platform/Shape.shape.extents.y = platformDepth/2
-	$Platform/Shape.position.y = -(platformSprite.get_size().y/2)+(platformDepth/2)
+	$Platform/Shape3D.shape.extents.x = platformSprite.get_size().x/2
+	$Platform/Shape3D.shape.extents.y = platformDepth/2
+	$Platform/Shape3D.position.y = -(platformSprite.get_size().y/2)+(platformDepth/2)
 	if !Engine.is_editor_hint():
 		# Change platform sprite texture
-		$Platform/Sprite.texture = platformSprite
+		$Platform/Sprite2D.texture = platformSprite
 	else:
 		offsetTimer = 0
 	
 
 func _process(delta):
 	if Engine.is_editor_hint():
-		$Platform/Shape.shape.extents.x = platformSprite.get_size().x/2
-		$Platform/Shape.shape.extents.y = platformDepth/2
-		$Platform/Shape.position.y = -(platformSprite.get_size().y/2)+(platformDepth/2)
+		$Platform/Shape3D.shape.extents.x = platformSprite.get_size().x/2
+		$Platform/Shape3D.shape.extents.y = platformDepth/2
+		$Platform/Shape3D.position.y = -(platformSprite.get_size().y/2)+(platformDepth/2)
 		update()
 		# Offset timer for the editor to display
 		offsetTimer = wrapf(offsetTimer+(delta*speed),0,PI*2)
 
 func _physics_process(delta):
 	if !Engine.is_editor_hint():
-		# Sync the position up to tween between the start and end point based on level time
+		# Sync the position up to tween between the start and end point based checked level time
 		var getPos = (endPosition*(cos((Global.globalTimer*speed)+offset)*0.5+0.5))
 		# set platform to rounded position to prevent jittering
 		if fallSpeed == 0:
@@ -85,5 +85,5 @@ func _draw():
 		if speed > 0 or endPosition != Vector2.ZERO:
 			draw_texture(platformSprite,-platformSprite.get_size()/2,Color(1,1,1,0.25))
 			draw_texture(platformSprite,endPosition-platformSprite.get_size()/2,Color(1,0.5,0.5,0.1))
-			draw_texture(platformSprite,(endPosition*(cos(offsetTimer+offset)*0.5+0.5))-platformSprite.get_size()/2,Color.white)
-			draw_line(Vector2.ZERO,endPosition,Color.green)
+			draw_texture(platformSprite,(endPosition*(cos(offsetTimer+offset)*0.5+0.5))-platformSprite.get_size()/2,Color.WHITE)
+			draw_line(Vector2.ZERO,endPosition,Color.GREEN)

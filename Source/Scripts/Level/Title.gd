@@ -1,8 +1,8 @@
 extends Node2D
 
-export var music = preload("res://Audio/Soundtrack/9. SWD_TitleScreen.ogg")
-export var speed = 0
-export (PackedScene) var nextScene = load("res://Scene/Presentation/CharacterSelect.tscn")
+@export var music = preload("res://Audio/Soundtrack/9. SWD_TitleScreen.ogg")
+@export var speed = 0
+@export (PackedScene) var nextScene = load("res://Scene/Presentation/CharacterSelect.tscn")
 var titleEnd = false
 
 func _ready():
@@ -18,10 +18,10 @@ func _process(delta):
 	
 
 func _input(event):
-	# end title on start press
+	# end title checked start press
 	if event.is_action_pressed("gm_pause") and !titleEnd:
 		titleEnd = true
 		if Global.music.get_playback_position() < 14.0:
 			Global.music.seek(14.0)
-		Global.main.change_scene(nextScene,"FadeOut","FadeOut","SetSub",1)
+		Global.main.change_scene_to_file(nextScene,"FadeOut","FadeOut","SetSub",1)
 		$Celebrations.emitting = true

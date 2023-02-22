@@ -1,5 +1,5 @@
-tool
-extends Sprite
+@tool
+extends Sprite2D
 
 var stringLookup = {
 'A': 0,
@@ -70,18 +70,18 @@ var smallStringLookup = {
 '.': 37,
 }
 
-export var string = "123XYZ"
-onready var stringMem = string
+@export var string = "123XYZ"
+@onready var stringMem = string
 
-export (Texture) var smallStringTexture = preload("res://Graphics/HUD/LevelCards/font/smallfont3.png")
-export var hasNumbers = false
-export var smallHasNumber = true
+@export (Texture2D) var smallStringTexture = preload("res://Graphics/HUD/LevelCards/font/smallfont3.png")
+@export var hasNumbers = false
+@export var smallHasNumber = true
 
-export var smallHframes = 10
-export var smallVframes = 4
+@export var smallHframes = 10
+@export var smallVframes = 4
 
-export (int, "Top", "Middle", "Bottom") var vAlign = 0
-export (int, "Left", "Middle", "Right") var hAlign = 0
+@export (int, "Top", "Middle", "Bottom") var vAlign = 0
+@export (int, "Left", "Middle", "Right") var hAlign = 0
 
 func _ready():
 	region_enabled = true;
@@ -99,11 +99,11 @@ func _draw():
 	# calculate vertical alignment
 	var getVAlign = ((texture.get_height()/float(vframes))-(smallStringTexture.get_height()/smallVframes))*(vAlign/2)
 	
-	# width calculation (based on string length)
+	# width calculation (based checked string length)
 	var getXWidth = 0
-	# check if h align isn't on the left
+	# check if h align isn't checked the left
 	if hAlign > 0:
-		# calculate the width of the string based on the texture sizes of each character
+		# calculate the width of the string based checked the texture sizes of each character
 		for i in string.length():
 			if (stringLookup.has(string[i]) or smallStringLookup.has(string[i])):
 				if (smallStringLookup.has(string[i])):

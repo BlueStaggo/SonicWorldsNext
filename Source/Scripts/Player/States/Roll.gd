@@ -11,7 +11,7 @@ func _process(_delta):
 
 func _physics_process(delta):
 	
-	# Set air if not on floor
+	# Set air if not checked floor
 	if (!parent.ground):
 		parent.set_state(parent.STATES.AIR,parent.currentHitbox.ROLL)
 		return null
@@ -29,7 +29,7 @@ func _physics_process(delta):
 	else:
 		parent.movement.x += (parent.slprolldown*sin(parent.angle-parent.gravityAngle))/GlobalFunctions.div_by_delta(delta)
 	
-	var calcAngle = rad2deg(parent.angle-parent.gravityAngle)
+	var calcAngle = rad_to_deg(parent.angle-parent.gravityAngle)
 	if (calcAngle < 0):
 		calcAngle += 360
 	

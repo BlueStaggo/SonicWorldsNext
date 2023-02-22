@@ -1,27 +1,27 @@
 extends Area2D
-tool
+@tool
 
-onready var screenSize = get_viewport().size
+@onready var screenSize = get_viewport().size
 
-export (NodePath)var bossPath
+@export (NodePath)var bossPath
 
-export var keepLeftLocked = true
-export var keepTopLocked = true
+@export var keepLeftLocked = true
+@export var keepTopLocked = true
 
-export var keepRightLocked = true
-export var keepBottomLocked = true
+@export var keepRightLocked = true
+@export var keepBottomLocked = true
 
-export var lockLeft = true
-export var lockTop = true
+@export var lockLeft = true
+@export var lockTop = true
 
-export var lockRight = true
-export var lockBottom = true
+@export var lockRight = true
+@export var lockBottom = true
 
 
-export var ratchetScrollLeft = false
-export var ratchetScrollTop = false
-export var ratchetScrollRight = false
-export var ratchetScrollBottom = false
+@export var ratchetScrollLeft = false
+@export var ratchetScrollTop = false
+@export var ratchetScrollRight = false
+@export var ratchetScrollBottom = false
 
 var bossActive = false
 
@@ -46,14 +46,14 @@ func _on_BoundrySetter_body_entered(body):
 						i.limitBottom = min(global_position.y+screenSize.y/2,Global.hardBorderBottom)
 				
 				Global.main.set_volume(-50)
-				yield(Global.main,"volume_set")
+				await Global.main.volume_set
 				Global.main.set_volume(0,100)
 				
 				Global.bossMusic.play()
 				boss.active = true
 				
 				if boss.has_signal("boss_over"):
-					boss.connect("boss_over",self,"boss_completed")
+					boss.connect("boss_over",Callable(self,"boss_completed"))
 
 func boss_completed():
 	Global.bossMusic.stop()

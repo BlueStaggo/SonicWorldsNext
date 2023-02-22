@@ -16,7 +16,7 @@ func _process(_delta):
 		parent.sfx[18].play()
 		parent.animator.play("super")
 		# wait for aniamtion to finish before activating super completely
-		yield(parent.animator,"animation_finished")
+		await parent.animator.animation_finished
 		
 		if parent.ground:
 			parent.animator.play(lastAnim)

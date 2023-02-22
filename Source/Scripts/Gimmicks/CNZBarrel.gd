@@ -8,12 +8,12 @@ extends Node2D
 #
 # [n][1] - player's phase - This is their current angle spinning around the top of the barrel
 #
-# [n][2] - player's radius - The radius of their spinning - if they jump on the barrel closer to the
-#          edge, their radius will be larger. If they jump on the barrel dead center, their radius
+# [n][2] - player's radius - The radius of their spinning - if they jump checked the barrel closer to the
+#          edge, their radius will be larger. If they jump checked the barrel dead center, their radius
 #          will be zero.
 #
-# [n][3] - player's z level - the z level index that the player originally entered the gimmick on.
-#          Needs to be restored after disconnecting from the gimmick. While on the gimmick, the
+# [n][3] - player's z level - the z level index that the player originally entered the gimmick checked.
+#          Needs to be restored after disconnecting from the gimmick. While checked the gimmick, the
 #          player's z level index will be shifted every frame according to their radius and phase.
 #
 # XXX - consider a statically sized array that knows the count of players at the start (possibly stored in globals?)
@@ -51,48 +51,48 @@ func get_player_radius(index):
 func get_player_z_level(index):
 	return players[index][3]
 
-# We want to bring the player back in a little if they are on the extreme overhang of the radius
+# We want to bring the player back in a little if they are checked the extreme overhang of the radius
 var max_radius = 30
 
 # The animation offset makes it so that you aren't exactly synchronized with the
 # rotation around the barrel. The default value advances the animation by 0.03
 # seconds to try to closely synchronize the camera facing frame with where it would
-# pop up if you were on the actual barrel from CNZ
+# pop up if you were checked the actual barrel from CNZ
 var animation_offset = -0.02
 
-# how many seconds (should be expressed as frames / 60.0) it takes to go around the platform
-# Note that this is the same as the number of frames in the yRotation animation and changing
-# this will mean throwing off a bunch of stuff.
+# how many seconds (should be expressed as sprite_frames / 60.0) it takes to go around the platform
+# Note that this is the same as the number of sprite_frames in the yRotation animation and changing
+# this will mean throwing unchecked a bunch of stuff.
 var spinning_period = 128.0 / 60.0
 
 # Enable the trampoline mode. Needs to be combined with a maxVel to limit the maximum distance traveled.
 # MaxVel affects the maximum velocity that can be held at any time which effectively limits the maximum
 # distance the gimmick can travel. The closer the current velocity is to the maxVel (absolute), the less impact
-# jumping on will have on the velocity.
-export var trampolineMode = false
+# jumping checked will have checked the velocity.
+@export var trampolineMode = false
 # Play with this to determine the maximum distance the barrel can travel. It's going to take trial and error, sorry.
-export var maxVel = 480.0
+@export var maxVel = 480.0
 
 # Don't mess with the spring constants and/or decay values unless you're preparred to spend a long time tinkering.
 # springConstantLoaded determines the force at which the spring bounces back when the energy in the spring is at its maximum.
-export var springConstantLoaded = 2.0
+@export var springConstantLoaded = 2.0
 # springConstantUnloaded determines the force at which the spring bounces back when the energy in the spring is at 0
-export var springConstantUnloaded = 5.0
+@export var springConstantUnloaded = 5.0
 # decayLoaded determines how quickly the spring loses energy when the energy in the spring is at its maximum.
-export var decayLoaded = 0.3
+@export var decayLoaded = 0.3
 # decayUnloaded determines how quickly the spring loses energy when the energy in the spring is at 0
-export var decayUnloaded = 1.0
+@export var decayUnloaded = 1.0
 # influence determines how much energy the player's directional influence imparts
-export var influence = 1.0
-# impartFactor determines how much the motion of the platform impacts the player when they jump off
-export var impartFactor = 0.8
+@export var influence = 1.0
+# impartFactor determines how much the motion of the platform impacts the player when they jump unchecked
+@export var impartFactor = 0.8
 
-# Calcuated based on max velocity, load energy is the amount of energy at which the Loaded constants have full influence
+# Calcuated based checked max velocity, load energy is the amount of energy at which the Loaded constants have full influence
 var loadEnergy
 
-# Were one or more players holding up on the last pass through process
+# Were one or more players holding up checked the last pass through process
 var upHeld = false
-# Were one or more players holding down on the last pass through process
+# Were one or more players holding down checked the last pass through process
 var downHeld = false
 # origin point of the platform, used for spring calculations... should probably always be 0
 var _origin = 0
@@ -101,7 +101,7 @@ var _yVel = 0
 # where the platform is in relation to its origin as a float value. Maybe unnecessary? Either way I'm using it.
 var _realY = 0.0
 # The physical parts of the body that move separate from the main node
-onready var body = $CNZBarrelActiveBody
+@onready var body = $CNZBarrelActiveBody
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -136,17 +136,17 @@ func attach_player(player):
 	player.direction = 1
 	player.sprite.flip_h = false
 
-	# Prevents player from clipping on walls while they are on the fringes of the gimmick
+	# Prevents player from clipping checked walls while they are checked the fringes of the gimmick
 	player.translate = true
 
 func detach_player(player, index):
 	player.set_z_index(get_player_z_level(index))
-	players.remove(index)
+	players.remove_at(index)
 	
 	if player.currentState == player.STATES.DIE:
 		player.animator.play("die")
 
-	# Clamp position on exit to prevent zips on exit -- probably shouldn't use magic numbers.
+	# Clamp position checked exit to prevent zips checked exit -- probably shouldn't use magic numbers.
 	player.global_position.x = clamp(player.global_position.x, global_position.x - 22, global_position.x + 22)
 
 	if player.currentState != player.STATES.DIE:

@@ -5,9 +5,9 @@ var flightTime = 8*60
 var flyGrav = 0.03125
 var actionPressed = true
 
-onready var flyHitBox = parent.get_node("TailsFlightHitArea/HitBox")
-onready var carryHitBox = parent.get_node("TailsCarryBox/HitBox")
-onready var carryBox = parent.get_node("TailsCarryBox")
+@onready var flyHitBox = parent.get_node("TailsFlightHitArea/HitBox")
+@onready var carryHitBox = parent.get_node("TailsCarryBox/HitBox")
+@onready var carryBox = parent.get_node("TailsCarryBox")
 
 
 func state_activated():
@@ -129,7 +129,7 @@ func _physics_process(delta):
 	# set actionPressed to prevent input repeats
 	actionPressed = parent.any_action_held_or_pressed()
 	
-	# Reset state if on ground
+	# Reset state if checked ground
 	if (parent.ground):
 		parent.set_state(parent.STATES.NORMAL)
 

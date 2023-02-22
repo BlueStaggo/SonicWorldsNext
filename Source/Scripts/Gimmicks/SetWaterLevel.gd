@@ -1,8 +1,8 @@
 extends Area2D
-tool
+@tool
 
-export var setWaterLevel = 0
-export var setSpeed = 512
+@export var setWaterLevel = 0
+@export var setSpeed = 512
 
 func _process(_delta):
 	if Engine.editor_hint:

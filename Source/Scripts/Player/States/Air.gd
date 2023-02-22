@@ -2,7 +2,7 @@ extends "res://Scripts/Player/State.gd"
 
 var elecPart = preload("res://Entities/Misc/ElecParticles.tscn")
 
-export var isJump = false
+@export var isJump = false
 
 # drop dash variables
 var dropSpeed = [8,12] #the base speed for a drop dash, second is super
@@ -13,7 +13,7 @@ var lockDir = false
 
 func _ready():
 	if isJump: # we only want to connect it once so only apply this to the jump variation
-		parent.connect("enemy_bounced",self,"bounce")
+		parent.connect("enemy_bounced",Callable(self,"bounce"))
 
 # Jump actions
 func _process(_delta):
@@ -46,7 +46,7 @@ func _process(_delta):
 									# enable insta shield hitbox
 									parent.shieldSprite.get_node("InstaShieldHitbox/HitBox").disabled = false
 									# wait for animation for the shield to finish
-									yield(parent.shieldSprite,"animation_finished")
+									await parent.shieldSprite.animation_finished
 									# check shields hasn't changed
 									if (parent.shield == parent.SHIELDS.NONE):
 										parent.shieldSprite.visible = false
@@ -61,9 +61,9 @@ func _process(_delta):
 									parent.movement.y = -5.5*60.0
 									# generate 4 electric particles and send them out diagonally (rotated for each iteration of i to 4)
 									for i in range(4):
-										var part = elecPart.instance()
+										var part = elecPart.instantiate()
 										part.global_position = parent.global_position
-										part.direction = Vector2(1,1).rotated(deg2rad(90*i))
+										part.direction = Vector2(1,1).rotated(deg_to_rad(90*i))
 										parent.get_parent().add_child(part)
 								
 								# fire shield action
@@ -131,7 +131,7 @@ func _physics_process(delta):
 			
 			if (parent.inputs[parent.INPUTS.ACTION] or parent.inputs[parent.INPUTS.ACTION2] or parent.inputs[parent.INPUTS.ACTION3]) and parent.abilityUsed and (parent.shield <= parent.SHIELDS.NORMAL or parent.super or $"../../InvincibilityBarrier".visible):
 				if dropTimer < 1:
-					dropTimer += (delta/20)*60 # should be ready in the equivelent of 20 frames at 60FPS
+					dropTimer += (delta/20)*60 # should be ready in the equivelent of 20 sprite_frames at 60FPS
 				else:
 					if parent.animator.current_animation != "dropDash":
 						parent.sfx[20].play()
@@ -144,7 +144,7 @@ func _physics_process(delta):
 	
 		
 	# Change parent direction
-	# Check that lock direction isn't on
+	# Check that lock direction isn't checked
 	if !lockDir and parent.inputs[parent.INPUTS.XINPUT] != 0:
 			parent.direction = parent.inputs[parent.INPUTS.XINPUT]
 	
@@ -154,7 +154,7 @@ func _physics_process(delta):
 	# Gravity
 	parent.movement.y += parent.grv/GlobalFunctions.div_by_delta(delta)
 	
-	# Reset state if on ground
+	# Reset state if checked ground
 	if (parent.ground):
 		# Check bounce reaction first
 		if !bounce():
@@ -188,7 +188,7 @@ func _physics_process(delta):
 				parent.lock_camera(16.0/60.0)
 				
 				# drop dash dust
-				var dust = parent.Particle.instance()
+				var dust = parent.Particle.instantiate()
 				dust.play("DropDash")
 				dust.global_position = parent.global_position+Vector2(0,2).rotated(parent.rotation)
 				dust.scale.x = parent.direction

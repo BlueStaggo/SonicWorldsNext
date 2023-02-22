@@ -1,8 +1,8 @@
-extends KinematicBody2D
-tool
+extends CharacterBody2D
+@tool
 
-export var texture = preload("res://Graphics/Obstacles/Walls/shutter.png")
-export (int,"left","right","switch")var side = 0
+@export var texture = preload("res://Graphics/Obstacles/Walls/shutter.png")
+@export (int,"left","right","switch")var side = 0
 var open = false
 
 func _ready():
@@ -47,13 +47,13 @@ func _process(delta):
 		$CloseShutter.position.x = abs($CloseShutter.position.x)*(-1+(min(1,side)*2))
 		$CloseShutter2.position.x = abs($CloseShutter2.position.x)*(1-(min(1,side)*2))
 
-# open on body touch (and player 1)
+# open checked body touch (and player 1)
 func _on_OpenShutter_body_entered(body):
 	if body.playerControl == 1:
 		open = true
 
 
-# close on body leave (and player 1)
+# close checked body leave (and player 1)
 func _on_CloseShutter_body_entered(body):
 	if body.playerControl == 1:
 		open = false

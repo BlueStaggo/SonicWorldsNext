@@ -2,7 +2,7 @@ extends "res://Scripts/Player/State.gd"
 
 var skid = false
 # timer for looking up and down
-# the original game uses 120 frames before panning over, so multiply delta by 0.5 for the same time
+# the original game uses 120 sprite_frames before panning over, so multiply delta by 0.5 for the same time
 var lookTimer = 0
 var actionPressed = false
 
@@ -17,7 +17,7 @@ var playerIdles = [
 "idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4","idle4",
 "idle5"],
 # TAILS
-["idle1"], # Note: tails idle loops on idle one, to add more idles make sure to disable his idle1 loop
+["idle1"], # Note: tails idle loops checked idle one, to add more idles make sure to disable his idle1 loop
 # Knuckles
 ["idle1"]
 ]
@@ -73,8 +73,8 @@ func _process(delta):
 				# set vertical sensors to check for objects
 				
 				var maskMemory = [parent.verticalSensorLeft.collision_mask,parent.verticalSensorRight.collision_mask]
-				parent.verticalSensorLeft.set_collision_mask_bit(13,true)
-				parent.verticalSensorRight.set_collision_mask_bit(13,true)
+				parent.verticalSensorLeft.set_collision_mask_value(13,true)
+				parent.verticalSensorRight.set_collision_mask_value(13,true)
 				parent.verticalSensorLeft.force_raycast_update()
 				parent.verticalSensorRight.force_raycast_update()
 				parent.verticalSensorMiddle.force_raycast_update()
@@ -197,7 +197,7 @@ func _physics_process(delta):
 	
 	parent.movement.y = min(parent.movement.y,0)
 	
-	# Camera look
+	# Camera3D look
 	if abs(lookTimer) >= 1:
 		parent.camLookAmount += delta*4*sign(lookTimer)
 	
@@ -205,7 +205,7 @@ func _physics_process(delta):
 	# ignore this if not moving for sonic 1 style slopes
 	parent.movement.x += (parent.slp*sin(parent.angle-parent.gravityAngle))/GlobalFunctions.div_by_delta(delta)
 	
-	var calcAngle = rad2deg(parent.angle-parent.gravityAngle)
+	var calcAngle = rad_to_deg(parent.angle-parent.gravityAngle)
 	if (calcAngle < 0):
 		calcAngle += 360
 	
@@ -225,7 +225,7 @@ func _on_SkidDustTimer_timeout():
 		if !skid:
 			$"../../SkidDustTimer".stop()
 		else:
-			var dust = parent.Particle.instance()
+			var dust = parent.Particle.instantiate()
 			dust.play("SkidDust")
-			dust.global_position = parent.global_position+(Vector2.DOWN*16).rotated(deg2rad(parent.spriteRotation-90))
+			dust.global_position = parent.global_position+(Vector2.DOWN*16).rotated(deg_to_rad(parent.spriteRotation-90))
 			parent.get_parent().add_child(dust)

@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 var screenOffset = null
 var myPlayer = null
@@ -19,7 +19,7 @@ func _process(delta):
 
 
 func _on_BubbleCountDown_animation_finished():
-	# on first animation finish, set screen offset to current position, then play the bubble count
+	# checked first animation finish, set screen offset to current position, then play the bubble count
 	# if already screen locked then free
 	if screenOffset == null:
 		play("count"+str(countTime))
