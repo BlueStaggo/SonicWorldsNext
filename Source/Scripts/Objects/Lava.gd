@@ -17,7 +17,7 @@ func _ready():
 	update_graphics()
 
 func _process(delta):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		update_graphics()
 	else:
 		# do that thing where the graphics move from side to side

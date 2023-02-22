@@ -24,8 +24,8 @@ extends Node
 # The CONSTANT launch mode will always launch the player with a set speed based checked launchSpeed
 # The MULTIPLY launch mode will launch the player at a multiple of their incoming velocity clamp
 #              to a given max value.
-enum {CONSTANT, MULTIPLY}
-@export var launchMode # Keep these in the same order as the above enum # (int, "constant", "multiply")
+enum LAUNCH_MODES {CONSTANT, MULTIPLY}
+@export var launchMode: LAUNCH_MODES = LAUNCH_MODES.CONSTANT # Keep these in the same order as the above enum # (int, "constant", "multiply")
 
 var players = [] # Tracks the players that are active within the gimmick
 var players_speed = [] # Tracks the player's speed checked entering the loop (used for multiply mode)
@@ -104,7 +104,7 @@ func _process(delta):
 				players_pass_hit[playerIndex] = true
 				players_cur_loops[playerIndex] += 1
 				if (players_cur_loops[playerIndex] >= rotations):
-					if launchMode == MULTIPLY:
+					if launchMode == LAUNCH_MODES.MULTIPLY:
 						i.movement.x = min(launchMultiMaxSpeed, max(-launchMultiMaxSpeed, players_speed[playerIndex] * launchMultiplier))
 					else:
 						i.movement.x = launchSpeed * i.direction

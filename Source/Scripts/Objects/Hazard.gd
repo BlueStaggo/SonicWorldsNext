@@ -1,6 +1,7 @@
 extends Area2D
 
-@export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
+enum ELEMENT {NORMAL, FIRE, ELEC, WATER}
+@export var damageType: ELEMENT = ELEMENT.NORMAL
 var playerHit = []
 
 func _process(_delta):

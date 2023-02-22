@@ -4,7 +4,6 @@ extends "res://Scripts/Objects/StateMovers/StateMover.gd"
 
 var startPos
 var endPos
-@export var position: Vector2
 @export var nextState = 1
 
 enum INTERPOLATION {COS, LINEAR}

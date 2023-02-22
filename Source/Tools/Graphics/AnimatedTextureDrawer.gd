@@ -58,7 +58,7 @@ func _process(delta):
 				_cur_frame = 0
 
 	frameToDraw = abs(_cur_frame)
-	update()
+	queue_redraw()
 
 # If you need this object to draw from another class, use this function (as opposed to draw_at_pos_internal)
 # This will add positions to the drawAtPosQueue. Which this object goes through its draw cycle, it will then

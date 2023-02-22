@@ -1,6 +1,7 @@
 class_name BossBase extends CharacterBody2D
 
-@export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
+enum ELEMENT {NORMAL, FIRE, ELEC, WATER}
+@export var damageType: ELEMENT = ELEMENT.NORMAL
 var playerHit = []
 
 @export var hp = 8

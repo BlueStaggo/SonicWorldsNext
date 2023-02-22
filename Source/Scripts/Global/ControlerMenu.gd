@@ -153,7 +153,7 @@ func load_data():
 				# define new key
 				var getInput = InputEventKey.new()
 				# grab scancode
-				getInput.scancode = file.get_value("controls","K"+str(actionCount)+i)
+				getInput.keycode = file.get_value("controls","K"+str(actionCount)+i)
 				# set new input
 				InputMap.action_add_event(i,getInput)
 			# joypad button check

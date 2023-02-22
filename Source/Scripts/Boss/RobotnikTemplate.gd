@@ -11,7 +11,8 @@ var attackTimer = 0
 var currentPoint = 1
 var Explosion = preload("res://Entities/Misc/GenericParticle.tscn")
 
-var velocity = Vector2.ZERO
+# XXX Why do we need to initialize velocity?
+#var velocity = Vector2.ZERO
 var hoverOffset = 0
 
 var animationPriority = ["default","move","laugh","hit","exploded"]

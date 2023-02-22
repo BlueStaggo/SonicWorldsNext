@@ -3,7 +3,9 @@ extends AnimatedSprite2D
 var animFinished = false
 
 func _ready():
-	playing = true
+	# XXX Does this not autoplay by virtue of being an AnimatedSprite2D?
+	#playing = true
+	pass
 
 func _on_animation_finished():
 	animFinished = true

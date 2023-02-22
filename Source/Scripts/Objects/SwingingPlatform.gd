@@ -19,7 +19,7 @@ var edittime = 0 # Time for the editor version
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if(!Engine.editor_hint): # If not in editor, show the platform, and set the platform's image
+	if !Engine.is_editor_hint(): # If not in editor, show the platform, and set the platform's image
 		platform.show()
 		platform.get_node("Sprite2D").texture = plat_img
 		# Change platform shape
@@ -29,13 +29,13 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if(Engine.editor_hint): # All the editor code is in draw
+	if Engine.is_editor_hint(): # All the editor code is in draw
 		edittime = fmod(edittime + (delta * 60 * speed) * dir,360)
 	# Update is used in editor, and for the chains checked the swing.
-	update()
+	queue_redraw()
 
 func _physics_process(_delta):
-	if(!Engine.editor_hint): # Do all of the platform code if not in the editor
+	if !Engine.is_editor_hint(): # Do all of the platform code if not in the editor
 		# Calculate direction for the platform
 		var direction = Vector2.DOWN.rotated(-deg_to_rad(sin(deg_to_rad(fmod(Global.globalTimer * 60 * speed * dir,360))) * rotate_amount))
 		# Calculate the position of the platform, using the variable we got from the chains.
@@ -44,7 +44,7 @@ func _physics_process(_delta):
 		
 
 func _draw():
-	if(!Engine.editor_hint):  # Non-editor stuff
+	if !Engine.is_editor_hint():  # Non-editor stuff
 		# Calcutlate direction
 		var direction = platform.position.normalized()
 		# Draw Each Chain

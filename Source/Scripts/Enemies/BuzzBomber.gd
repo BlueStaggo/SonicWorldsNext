@@ -24,7 +24,7 @@ func _ready():
 
 func _process(delta):
 	if Engine.is_editor_hint():
-		update()
+		queue_redraw()
 		
 		# move editor offset based checked movement speed
 		if editorOffset > -1:

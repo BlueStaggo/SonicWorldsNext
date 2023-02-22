@@ -5,7 +5,8 @@ var behaviour = 0
 enum TYPE {NORMAL, FOLLOW_WATER_SURFACE}
 
 func _ready():
-	playing = true
+	# Why was this necessary?
+	#playing = true
 	if behaviour == 0:
 		set_process(false)
 

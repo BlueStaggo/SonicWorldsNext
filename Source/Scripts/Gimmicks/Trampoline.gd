@@ -1,8 +1,8 @@
 # Ice Cap Zone Trampolines
 # by DimensionWarped (February 2023)
 
-extends "res://Tools/Graphics/AnimatedTextureDrawer.gd"
 @tool
+extends "res://Tools/Graphics/AnimatedTextureDrawer.gd"
 
 var weight = 0
 var trampolineYVelocity = 0

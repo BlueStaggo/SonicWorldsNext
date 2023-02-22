@@ -33,7 +33,7 @@ func _process(delta):
 		$Platform/Shape3D.shape.extents.x = platformSprite.get_size().x/2
 		$Platform/Shape3D.shape.extents.y = platformDepth/2
 		$Platform/Shape3D.position.y = -(platformSprite.get_size().y/2)+(platformDepth/2)
-		update()
+		queue_redraw()
 		# Offset timer for the editor to display
 		offsetTimer = wrapf(offsetTimer+(delta*speed),0,PI*2)
 

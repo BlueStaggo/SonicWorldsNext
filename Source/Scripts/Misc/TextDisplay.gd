@@ -73,15 +73,20 @@ var smallStringLookup = {
 @export var string = "123XYZ"
 @onready var stringMem = string
 
-@export (Texture2D) var smallStringTexture = preload("res://Graphics/HUD/LevelCards/font/smallfont3.png")
+@export var smallStringTexture = preload("res://Graphics/HUD/LevelCards/font/smallfont3.png")
 @export var hasNumbers = false
 @export var smallHasNumber = true
 
 @export var smallHframes = 10
 @export var smallVframes = 4
 
-@export (int, "Top", "Middle", "Bottom") var vAlign = 0
-@export (int, "Left", "Middle", "Right") var hAlign = 0
+enum INTERPOLATION_MODE {linear, center_parabolic}
+@export var interpolationMode: INTERPOLATION_MODE = INTERPOLATION_MODE.linear
+
+enum VERTICAL_ALIGNMENT_MODES {TOP, MIDDLE, BOTTOM}
+@export var vAlign = VERTICAL_ALIGNMENT_MODES.TOP
+enum HORIZONTAL_ALIGNMENT_MODES {LEFT, MIDDLE, RIGHT}
+@export var hAlign = HORIZONTAL_ALIGNMENT_MODES.LEFT
 
 func _ready():
 	region_enabled = true;
@@ -89,7 +94,7 @@ func _ready():
 func _process(_delta):
 	if (stringMem != string):
 		stringMem = string;
-		update()
+		queue_redraw()
 
 
 func _draw():

@@ -1,9 +1,11 @@
 class_name EnemyBase extends CharacterBody2D
 
-@export (int, "Normal", "Fire", "Elec", "Water") var damageType = 0
+enum ELEMENT {NORMAL, FIRE, ELEC, WATER}
+@export var damageType: ELEMENT = ELEMENT.NORMAL
 var playerHit = []
 
-var velocity = Vector2.ZERO
+# XXX Why do we ever need to set a zero velocity?
+#var velocity = Vector2.ZERO
 var Explosion = preload("res://Entities/Misc/BadnickSmoke.tscn")
 var Animal = preload("res://Entities/Misc/Animal.tscn")
 var forceDamage = false
