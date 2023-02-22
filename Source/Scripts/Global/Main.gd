@@ -97,11 +97,11 @@ func reset_game():
 # storeScene = should the current scene be storred? (not the new one being loaded)
 # NOTE: if there's already a scene saved then the next time storeScene is called then the stored scene will be loaded instead before it gets removed
 # resetData = should the level data be reset between scenes (this is needed for storeScene if you're storing a level so that level times and object references don't get reset)
-func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", setType = "SetSub", length = 1, storeScene = false, resetData = true):
+func change_scene_to_file(scene = null, fadeOut = "", fadeIn = "", setType = "SetSub", length = 1.0, storeScene = false, resetData = true):
 	# stop pausing
 	sceneCanPause = false
 	# set fader speed
-	$GUI/Fader.playback_speed = 1/length
+	$GUI/Fader.set_speed_scale(1.0/length)
 	# play the set type animation
 	$GUI/Fader.play(setType)
 	
